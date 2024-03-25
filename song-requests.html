@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Core theme CSS -->
     <link rel="stylesheet" href="./style.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1F353H4FZD"></script>
     <script>
@@ -52,36 +55,48 @@
     <div id="userName">
       루한별
     </div>
-
-    <div id="links">
-      <a class="link" href="./chat-rules">
-        <i class="fas fa-comment">&nbsp;</i>채팅 규칙
-      </a>
-      <a class="link" href="./song-requests">
-        <i class="fas fa-music">&nbsp;</i>신청곡 목록
-      </a>
-      <a class="link" href="./donate">
-        <i class="fas fa-donate">&nbsp;</i>후원하기
-      </a>
-      <br/>
-      <br/>
-      <a class="link" href="./chzzk">
-        <i class="fas fa-video">&nbsp;</i>치지직
-      </a>
-      <a class="link" href="./youtube">
-        <i class="fab fa-youtube">&nbsp;</i>유튜브
-      </a>
-      <a class="link" href="./instagram">
-        <i class="fab fa-instagram">&nbsp;</i>인스타그램
-      </a>
-      <a class="link" href="./discord">
-        <i class="fab fa-discord">&nbsp;</i>디스코드
-      </a>
-      <a class="link" href="./github">
-        <i class="fab fa-github">&nbsp;</i>깃허브
-      </a>
+    <p></p>
+    <div id="title">
+      신청곡 ￦3,000
     </div>
 
-    <img alt="Hits" src="https://hits.sh/luhanbyeol.com.svg" style="display: none;"/>
+    <div id="songs-container">
+      <div id="songs"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  <script src="./js/csv_to_html_table.js"></script>
+
+  <script>
+      function format_link(link) {
+          if (link)
+              return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+          else return "";
+      }
+
+      CsvToHtmlTable.init({
+          csv_path: "songs.csv",
+          element: "songs",
+          allow_download: false,
+          csv_options: {
+              separator: ",",
+              delimiter: '"'
+          },
+          datatables_options: {
+              searching: true,
+              paging: false,
+              info: false
+          },
+          custom_formatting: [
+              [4, format_link]
+          ]
+      });
+  </script>
+
+  <img alt="Hits" src="https://hits.sh/luhanbyeol.com/song-requests.svg" style="display: none;"/>
   </body>
 </html>
