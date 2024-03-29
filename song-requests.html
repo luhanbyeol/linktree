@@ -72,6 +72,17 @@
   <script src="./js/csv_to_html_table.js"></script>
 
   <script>
+      function removeCommentedLines(csv, state) {
+          var lines = csv.split('\n');
+          var output = [];
+          for(var i=0, len=lines.length; i<len; i++) {
+            if(!lines[i].startsWith('#')) {
+              output.push(lines[i]);
+            }
+          }
+          return output.join('\n');
+      }
+
       function format_link(link) {
           if (link)
               return "<a href='" + link + "' target='_blank'>" + link + "</a>";
@@ -84,7 +95,8 @@
           allow_download: false,
           csv_options: {
               separator: ",",
-              delimiter: '"'
+              delimiter: '"',
+              onPreParse: removeCommentedLines
           },
           datatables_options: {
               searching: true,
