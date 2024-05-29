@@ -83,6 +83,10 @@
           return output.join('\n');
       }
 
+      function addTitleColumns(data) {
+          return [["가수", "곡 제목", ""]].concat(data);
+      }
+
       function format_link(link) {
           if (link)
               return "<a href='" + link + "' target='_blank'>" + link + "</a>";
@@ -96,7 +100,8 @@
           csv_options: {
               separator: ",",
               delimiter: '"',
-              onPreParse: removeCommentedLines
+              onPreParse: removeCommentedLines,
+              onPostParse: addTitleColumns
           },
           datatables_options: {
               searching: true,
